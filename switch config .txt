@@ -77,3 +77,8 @@ exit
 end
 write memory
 
+Linux ip bij begin installatie
+-> netwerk adapter e25 -> manual
+forwarder windows DNS -> properties -> forwarder -> 172.16.0.5 -> 172.16.0.51
+Zorgen internet windows -> geen internet -> terug firewall -> policies chrcken -> vanaf vlan 20 naar wan ALL toegestaan
+
