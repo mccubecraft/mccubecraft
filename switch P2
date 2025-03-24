@@ -1,0 +1,106 @@
+! =======================
+! 1️⃣ Basisconfiguratie
+! =======================
+configure terminal
+hostname (SWITCH_HOSTNAME)
+
+! Beveilig console toegang
+line console 0
+password (CONSOLE_WACHTWOORD)
+login
+exit
+
+! Beveilig privileged mode
+enable secret (ENABLE_WACHTWOORD)
+
+! Login-banner instellen
+banner login #
+*******************************************************
+(BEDRIJFSNAAM)
+Alleen toegang met nadrukkelijke toestemming ICT-Beheer!
+Hostname: (SWITCH_HOSTNAME)
+Naam Beheerder: (JOUW_NAAM)
+*******************************************************
+#
+
+! =======================
+! 2️⃣ VLAN Configuratie
+! =======================
+vlan (VLAN_SERVERS)
+name Servers
+exit
+vlan (VLAN_CLIENTS)
+name Clients
+exit
+vlan (VLAN_MANAGEMENT)
+name Management
+exit
+
+! =======================
+! 3️⃣ VLAN Toewijzing aan Poorten
+! =======================
+interface range Fa1/0/1 - 8
+switchport mode access
+switchport access vlan (VLAN_SERVERS)
+exit
+
+interface range Fa1/0/9 - 16
+switchport mode access
+switchport access vlan (VLAN_CLIENTS)
+exit
+
+interface range Fa1/0/21 - 22
+switchport mode access
+switchport access vlan (VLAN_MANAGEMENT)
+exit
+
+! =======================
+! 4️⃣ Management VLAN en Default Gateway
+! =======================
+interface vlan (VLAN_MANAGEMENT)
+ip address (MANAGEMENT_IP) (SUBNET_MASK)
+no shutdown
+exit
+ip default-gateway (DEFAULT_GATEWAY_IP)
+
+! =======================
+! 5️⃣ Trunking Configuratie
+! =======================
+interface (TRUNK_POORT_FW)
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add (VLAN_SERVERS),(VLAN_CLIENTS),(VLAN_MANAGEMENT)
+exit
+
+interface (TRUNK_POORT_VMWARE)
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add (VLAN_VMWARE)
+exit
+
+! =======================
+! 6️⃣ Ongebruikte poorten uitschakelen
+! =======================
+interface range Fa1/0/17 - 20, Fa1/0/23
+shutdown
+exit
+
+! =======================
+! 7️⃣ SSH Configuratie
+! =======================
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+
+! Alleen SSH-toegang toestaan
+line vty 0 15
+transport input ssh
+login local
+exit
+
+username admin privilege 15 secret (SSH_WACHTWOORD)
+
+! Configuratie opslaan
+end
+write memory
