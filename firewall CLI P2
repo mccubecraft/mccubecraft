@@ -68,3 +68,58 @@ set dstintf "wan1"
 set action deny
 next
 end
+
+! 1️⃣ Blokkeer internet voor Management VLAN (EERST BLOKKEREN)
+edit 1
+set name "Management_No_Internet"
+set srcintf "vlan(MANAGEMENT_VLAN)"
+set dstintf "wan1"
+set action deny
+next
+
+! 2️⃣ Beheerders mogen switch & firewall beheren
+edit 2
+set name "Management_to_Network"
+set srcintf "vlan(MANAGEMENT_VLAN)"
+set dstintf "vlan(SWITCH_FIREWALL_VLAN)"
+set action accept
+set service "SSH" "HTTPS"
+next
+
+! 3️⃣ Servers mogen volledig internet
+edit 3
+set name "Servers_to_Internet"
+set srcintf "vlan(SERVERS_VLAN)"
+set dstintf "wan1"
+set action accept
+set service "ALL"
+next
+
+! 4️⃣ Servers mogen Clients benaderen
+edit 4
+set name "Servers_to_Clients"
+set srcintf "vlan(SERVERS_VLAN)"
+set dstintf "vlan(CLIENTS_VLAN)"
+set action accept
+set service "ALL"
+next
+
+! 5️⃣ Clients mogen internet gebruiken (HTTP/HTTPS)
+edit 5
+set name "Clients_to_Internet"
+set srcintf "vlan(CLIENTS_VLAN)"
+set dstintf "wan1"
+set action accept
+set service "HTTP" "HTTPS"
+next
+
+! 6️⃣ Blokkeer Netflix & Dropbox voor Clients (EERST INTERNET TOESTAAN, DAN BLOKKEREN)
+edit 6
+set name "Block_Netflix_Dropbox"
+set srcintf "vlan(CLIENTS_VLAN)"
+set dstintf "wan1"
+set action deny
+set service "Netflix" "Dropbox"
+next
+
+end
