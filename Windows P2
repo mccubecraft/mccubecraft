@@ -1,0 +1,68 @@
+1️⃣ Windows Server Installeren en Domein Instellen
+Start de Windows Server VM op.
+
+Open Server Manager > Add Roles and Features.
+
+Klik op Next tot je bij Server Roles komt.
+
+Vink "Active Directory Domain Services" aan en klik op Next > Install.
+
+Na installatie:
+
+Klik op "Promote this server to a domain controller".
+
+Kies "New Forest" en vul in:
+
+Domeinnaam: (DOMEINNAAM)
+
+NetBIOS Name: (DOMEINNAAM)
+
+Klik op Next en voltooi de installatie.
+
+✅ Je server is nu een domeincontroller!
+
+2️⃣ Organizational Units (OU’s) en Gebruikers Aanmaken
+Open Active Directory Users & Computers.
+
+Klik op Domeinnaam > New Organizational Unit.
+
+Maak de volgende OU’s aan:
+
+OU=Servers
+
+OU=Clients
+
+OU=Afdelingen (Marketing, HR, IT, enz.)
+
+Klik met rechts op een OU en kies "New User" om gebruikers aan te maken.
+
+3️⃣ DHCP Instellen
+Open Server Manager > Tools > DHCP.
+
+Klik rechts op de server en kies New Scope.
+
+Vul in:
+
+Start IP: (DHCP_BEREIK_START)
+
+End IP: (DHCP_BEREIK_STOP)
+
+Subnet Mask: (SUBNETMASKER)
+
+Default Gateway: (FIREWALL_IP)
+
+Klik op Next en voltooi de setup.
+
+4️⃣ VPN Instellen
+Open Server Manager > Add Roles and Features.
+
+Voeg toe:
+
+Remote Access
+
+Routing and Remote Access
+
+Open Routing and Remote Access, klik rechts en kies Enable.
+
+Configureer VPN-toegang voor gebruikers.
+
