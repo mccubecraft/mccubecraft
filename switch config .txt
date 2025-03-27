@@ -44,7 +44,7 @@ interface range Fa1/0/21 - 22 <--------
 switchport mode access
 switchport access vlan 99 <--------
 exit
-ip default-gateway 10.10.130.11 <--------
+ip default-gateway 10.10.130.11 <-------- Dit moet het ip zijn van de firewall
 interface vlan 99 <--------
 ip address 10.10.130.1 255.255.255.0 <--------
 no shutdown
