@@ -3,8 +3,8 @@
 #buildno=1263
 #global_vdom=1
 config system global
-    set alias "FortiGate-30E"
-    set hostname "ST_FGT01"
+    set alias "FortiGate-30E" 
+    set hostname "ST_FGT01" <----------
     set pre-login-banner enable
     set switch-controller enable
     set timezone 04
@@ -70,35 +70,35 @@ config system interface
     next
     edit "Servers"
         set vdom "root"
-        set ip 172.16.5.254 255.255.255.0
+        set ip 172.16.5.254 255.255.255.0 <--------
         set allowaccess ping
         set device-identification enable
         set role lan
         set snmp-index 7
         set interface "lan4"
-        set vlanid 2
+        set vlanid 2 <-------
     next
     edit "Clients"
         set vdom "root"
         set dhcp-relay-service enable
-        set ip 172.16.11.254 255.255.255.0
+        set ip 172.16.11.254 255.255.255.0 <----------
         set allowaccess ping
         set device-identification enable
         set role lan
         set snmp-index 8
-        set dhcp-relay-ip "172.16.5.1" 
+        set dhcp-relay-ip "172.16.5.1" <-------- (ip van de server)
         set interface "lan4"
-        set vlanid 12
+        set vlanid 12 <--------
     next
     edit "Management"
         set vdom "root"
-        set ip 172.16.30.14 255.255.255.0
+        set ip 172.16.30.14 255.255.255.0 <-------
         set allowaccess ping https ssh http
         set device-identification enable
         set role lan
         set snmp-index 9
         set interface "lan4"
-        set vlanid 99
+        set vlanid 99 <-------
     next
 end
 config system physical-switch
