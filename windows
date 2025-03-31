@@ -128,3 +128,51 @@ Naam: CasaEase_Printer1
 IP-adres: 10.10.120.5
 Klik Next en installeer de driver (Kyocera KX Driver).
 🔹 Printers zijn nu gedeeld in het netwerk! 🖨️
+
+
+🔹 Hoe stel je een vast IP-adres in op Windows Server?
+1️⃣ Open Netwerkcentrum:
+
+Druk op Win + R, typ ncpa.cpl en druk op Enter.
+
+2️⃣ Ga naar de Netwerkadapter:
+
+Klik met rechtermuisknop op de netwerkverbinding (Ethernet of Wi-Fi).
+
+Kies Eigenschappen.
+
+3️⃣ Pas het IP-adres aan:
+
+Selecteer Internet Protocol Version 4 (TCP/IPv4).
+
+Klik op Eigenschappen.
+
+Kies Gebruik het volgende IP-adres en vul in:
+
+IP-adres: (Bijv. 192.168.1.10)
+
+Subnetmasker: (255.255.255.0)
+
+Standaardgateway: (192.168.1.1, het IP van je router of firewall)
+
+Voorkeurs-DNS-server: (192.168.1.10, het IP van je domeincontroller als je DNS draait)
+
+Alternatieve DNS-server: (8.8.8.8, of een ander extern DNS zoals Cloudflare 1.1.1.1)
+
+4️⃣ Klik op OK en sluit alles.
+
+5️⃣ Test de verbinding:
+
+Open Command Prompt en voer uit:
+
+ipconfig /all
+
+✅ Controleer of het vaste IP-adres correct is ingesteld.
+
+Test de internetverbinding met:
+
+ping 8.8.8.8
+
+Test of de server zichzelf kan bereiken:
+
+ping (EIGEN IP-ADRES)
