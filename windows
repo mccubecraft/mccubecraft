@@ -176,3 +176,21 @@ ping 8.8.8.8
 Test of de server zichzelf kan bereiken:
 
 ping (EIGEN IP-ADRES)
+
+
+DNS Forwarder instellen via GUI
+📌 Als je liever via de GUI werkt:
+
+Open Server Manager
+
+Ga naar Tools → DNS
+
+Klik op je DNS-server in de lijst
+
+Klik rechts en kies Eigenschappen
+
+Ga naar het tabblad Forwarders
+
+Voeg de externe DNS-servers toe, zoals 8.8.8.8 en 1.1.1.1
+
+Klik op OK
