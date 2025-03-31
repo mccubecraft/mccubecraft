@@ -1,2 +1,8 @@
 Linux ip bij begin installatie
 -> netwerk adapter e25 -> manual
+
+
+Vergeet niet in linux is je subnet je adres dus bijv 192.168.10.0 en dan / met je subnet bits erachter
+255.255.255.0 is /24 omdat het 24 1tjes zijn
+
+Dus dan ist subnet voor linux 192.168.10.0/24
