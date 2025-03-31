@@ -144,3 +144,9 @@ Schakel logging in voor:
 ✅ System Events
 
 🔹 Zorg dat PRTG Monitoring correct is ingesteld (CPU, RAM, WAN-verkeer, IPS-logboeken).
+
+POLICYS
+1️⃣ Blokkerende regels altijd bovenaan (DENY eerst!).
+2️⃣ Specifieke toegang eerst, bredere toegang later.
+3️⃣ Denk in logische volgorde van streng naar ruim.
+4️⃣ Laatste regels voor algemene internettoegang of brede toegang.
