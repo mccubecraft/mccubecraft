@@ -46,7 +46,7 @@ switchport access vlan 99 <--------
 exit
 ip default-gateway 10.10.130.11 <-------- Dit moet het ip zijn van de firewall
 interface vlan 99 <--------
-ip address 10.10.130.1 255.255.255.0 <--------
+ip address 10.10.130.1 255.255.255.0 <-------- "Interface vlan 100"
 no shutdown
 exit
 !
