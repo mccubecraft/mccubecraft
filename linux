@@ -9,8 +9,8 @@ Vergeet niet in linux is je subnet je adres dus bijv 192.168.10.0 en dan / met j
 255.255.255.0 is /24 omdat het 24 1tjes zijn
 
 Subnet = 192.168.1.0/24 (omdat je een /24 netwerk gebruikt, dus 255.255.255.0) EINDIGT ALTIJD OP .0 !!!
-Address = het IP uit je IP-plan voor Linux server (interface vlan ..)
-Gateway = het ip van het Vlan waar de Linux server in zit
+Address = het IP uit je IP-plan voor Linux server
+Gateway = het ip van het Vlan waar de Linux server in zit (interface vlan ..)
 DNS = het IP van je Windows Server
 
 welke /
