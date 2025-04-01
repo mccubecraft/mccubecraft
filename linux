@@ -1,6 +1,10 @@
 Linux ip bij begin installatie
 -> netwerk adapter e25 -> manual
 
+Linux ip bij begin installatie (Network Configuration)
+
+"Enter" op de NAME(ens33?) -> Edit IPV4 -> IPV4 Method "Manual" ->
+
 Vergeet niet in linux is je subnet je adres dus bijv 192.168.10.0 en dan / met je subnet bits erachter
 255.255.255.0 is /24 omdat het 24 1tjes zijn
 
