@@ -94,7 +94,15 @@ Selecteer de Security Policies GPO en klik op OK.
 4. Policies direct toepassen (forceren)
 Open de Command Prompt (cmd) als Administrator.
 
+
 gpupdate /force
 
 Wacht totdat de update is voltooid.
 
+
+Vlan 8
+172.16.4.254
+Vlan 25
+172.16.21.254 (gok ik)
+Vlan 50
+172.16.23.geen idee staat op ip plan
