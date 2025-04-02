@@ -7,3 +7,94 @@ Interface: WAN
 Administrative Distance: 10
 Status: Enabled
 
+Active Directory Policies instellen – Stap-voor-stap handleiding
+
+1. Open de Group Policy Management Console (GPMC)
+Klik op Start en typ Group Policy Management, druk op Enter.
+In de Group Policy Management Console (GPMC), navigeer naar Forest: Safeguard.int > Domains > Safeguard.int.
+Klik met de rechtermuisknop op Group Policy Objects (GPOs) en kies New om een nieuwe policy te maken.
+Geef de policy een naam, bijvoorbeeld: "Security Policies", en klik op OK.
+
+2. Instellen van de beleidsregels (Policies)
+2.1 Alleen toegang tot specifieke configuratie-instellingen
+📌 Doel: Alleen de IT-afdeling mag geavanceerde instellingen aanpassen.
+
+Klik met de rechtermuisknop op de GPO Security Policies en kies Edit.
+
+Ga naar User Configuration > Administrative Templates > Control Panel > Personalization.
+
+Zoek de volgende instellingen:
+
+Prevent changing time zone → Zet op Enabled
+
+Prevent changing sounds → Zet op Enabled
+
+Prevent changing mouse settings → Zet op Enabled
+
+Prevent changing keyboard settings → Zet op Enabled
+
+Sluit de editor en sla de wijzigingen op.
+
+2.2 ‘Register Editor’ blokkeren voor medewerkers
+📌 Doel: Medewerkers mogen de Register Editor niet openen.
+
+Open de GPO Security Policies in de Group Policy Management Editor.
+
+Navigeer naar User Configuration > Administrative Templates > System.
+
+Dubbelklik op Prevent access to registry editing tools.
+
+Kies Enabled en klik op OK.
+
+2.3 ‘Opdrachtprompt’ blokkeren voor medewerkers
+📌 Doel: Voorkomen dat gebruikers CMD kunnen openen.
+
+Ga naar User Configuration > Administrative Templates > System.
+
+Dubbelklik op Prevent access to the command prompt.
+
+Zet deze op Enabled en klik op OK.
+
+2.4 ‘PowerShell’ blokkeren voor medewerkers
+📌 Doel: Voorkomen dat gebruikers PowerShell kunnen gebruiken.
+
+Ga naar User Configuration > Administrative Templates > Windows Components > Windows PowerShell.
+
+Dubbelklik op Turn off Windows PowerShell script execution.
+
+Kies Enabled en klik op OK.
+
+2.5 ‘Guest’ account uitschakelen via een policy
+📌 Doel: Voorkomen dat er een ‘guest’ account actief is.
+
+Ga naar Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options.
+
+Dubbelklik op Accounts: Guest account status.
+
+Zet deze op Disabled en klik op OK.
+
+2.6 Geforceerd herstarten bij updates
+📌 Doel: Zorg dat computers automatisch herstarten na updates.
+
+Ga naar Computer Configuration > Administrative Templates > Windows Components > Windows Update.
+
+Zoek Always automatically restart at the scheduled time en dubbelklik erop.
+
+Zet deze op Enabled en stel in dat de herstart plaatsvindt na 15 of 30 minuten.
+
+3. Policies toepassen op de juiste Organizational Units (OU’s)
+Ga terug naar de Group Policy Management Console.
+
+Navigeer naar Forest: Safeguard.int > Domains > Safeguard.int > Organizational Units (OU’s).
+
+Klik met de rechtermuisknop op de OU van de medewerkers (bijvoorbeeld Marketing, HR, CSD) en kies Link an Existing GPO.
+
+Selecteer de Security Policies GPO en klik op OK.
+
+4. Policies direct toepassen (forceren)
+Open de Command Prompt (cmd) als Administrator.
+
+gpupdate /force
+
+Wacht totdat de update is voltooid.
+
