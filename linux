@@ -17,3 +17,9 @@ welke /
 ✅ Stap 1: Gebruik ipconfig (Windows) of ip -c address show (Linux) om het subnetmasker te vinden.
 ✅ Stap 2: Gebruik de tabel hierboven om te bepalen welke CIDR-notatie (/XX) erbij hoort.
 ✅ Stap 3: Vul het juiste subnet in (192.168.X.0/XX) afhankelijk van je IP-plan.
+
+
+Subnet: 172.16.4.0/24
+Ip: 172.16.4.8
+Default gateway: 172.16.4.254
+Default name server: 172.16.4.5
