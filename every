@@ -1,0 +1,9 @@
+Static Route 
+
+Destination: Subnet
+Subnet/IP: 192.168.15.0/24
+Gateway Address: 172.20.14.250
+Interface: WAN
+Administrative Distance: 10
+Status: Enabled
+
