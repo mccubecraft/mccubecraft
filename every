@@ -42,6 +42,35 @@ Wacht totdat de update is voltooid.
 
 https://www.youtube.com/watch?v=UHwDpt8WFoE <--------------------- roaming profiles
 
+Step 1: Create a Shared Folder for Roaming Profiles
+Create a New Folder:
+On the server, create a new folder (e.g., RoamingProfiles).
+Share the Folder:
+Right-click on the folder and select "Properties".
+Go to the "Sharing" tab and click on "Advanced Sharing".
+Check "Share this folder" and click on "Permissions".
+Add the group "Domain Users" and give them "Full Control".
+Step 2: Open Active Directory Users and Computers
+Open the Tool:
+Press Win + R, type dsa.msc, and press Enter.
+Step 3: Configure User Profiles
+Find the OU Containing the Users:
+Right-click on a user and select "Properties".
+Go to the "Profile" Tab:
+In the "Profile path" field, enter the path to the shared folder followed by %username% (e.g., \\ServerName\RoamingProfiles\%username%).
+Repeat for All Users:
+Repeat these steps for all users in the OU.
+Step 4: Configure Group Policy
+Open the Group Policy Management Console:
+Press Win + R, type gpmc.msc, and press Enter.
+Create a New GPO:
+Create a new GPO (e.g., "Roaming Profiles GPO").
+Link the GPO to the OU:
+Link the GPO to the OU containing the users.
+Edit the GPO:
+Go to Computer Configuration -> Policies -> Administrative Templates -> System -> User Profiles.
+Double-click on "Set roaming profile path for all users logging onto this computer" and enter the path to the shared folder (e.g., \\ServerName\RoamingProfiles\%username%).
+
 Vlan 8
 172.16.4.254
 Vlan 25
