@@ -132,3 +132,11 @@ Open Routing and Remote Access, klik rechts en kies Enable.
 
 Configureer VPN-toegang voor gebruikers.
 
+172.16.20.55
+
+255.255.254.0
+
+172.16.21.254
+
+172.16.0.5
+172.16.0.51
