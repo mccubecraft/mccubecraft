@@ -35,3 +35,8 @@ Ping van Client naar Server: ping SERVER_IP
 Ping naar internet (vanaf client): ping 8.8.8.8
 
 Controleer of Netflix geblokkeerd is (open in browser)
+
+
+Switch : show running-config (kopieren opslaan bijlagen)
+Firewall: backup file
+Windows: snapshot
