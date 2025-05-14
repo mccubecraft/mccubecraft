@@ -1,0 +1,10 @@
+snmp instellen op switch
+https://community.cisco.com/t5/switching/how-to-configure-snmp-v2c-on-switch/td-p/4156771
+
+snmp instellen op fortigate / api key instellen fortigate / zonder de api key, kan de fortigate geen verbinding maken met prtg
+https://blog.paessler.com/monitoring-fortigate-firewalls-with-paessler-prtg
+
+Bij API key community aanmaken, zelf bedenken, bijvoorbeeld ; -Private of -Public
+
+sensoren instellen
+advies geven
