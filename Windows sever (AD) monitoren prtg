@@ -1,0 +1,84 @@
+✅ OPDRACHT 15.2 – Windows Server (Active Directory) Monitoren met PRTG
+📌 STAP 1 – Installeer PRTG
+Ga naar: https://www.paessler.com/prtg
+
+Registreer je met je school e-mailadres
+
+Download en installeer PRTG op de Windows Server met Active Directory
+
+Kies standaardinstellingen
+
+Open de browser en ga naar http://localhost
+
+📌 STAP 2 – Sensoren instellen in PRTG
+Je gaat nu PRTG gebruiken om belangrijke dingen van je server in de gaten te houden.
+
+a. CPU-gebruik
+Voeg de server toe als apparaat
+
+Klik op “Add Sensor”
+
+Kies: Windows CPU Load Sensor
+
+Stel in:
+
+Warning bij 80% of hoger
+
+PRTG geeft een melding als dit overschreden wordt
+
+b. Geheugengebruik (RAM)
+Voeg sensor toe: Windows Memory Sensor
+
+Stel warning in bij >75%
+
+c. Schijfruimte
+Voeg sensor toe: Windows Volume Sensor
+
+Kies de schijf (meestal C:)
+
+Stel in: waarschuwing als meer dan 80% vol is
+
+d. Netwerkgebruik
+Voeg sensor toe: SNMP Traffic Sensor of Windows Network Card Sensor
+
+Kies je netwerkadapter
+
+Stel limiet in bij >90% van de bandbreedte
+
+e. Systeem Uptime
+Voeg sensor toe: Windows System Uptime
+
+Je ziet hoelang het systeem aanstaat
+
+Bij onverwacht herstarten → alarm
+
+f. Event Logs (logboeken)
+Voeg sensor toe: Windows Event Log Sensor
+
+Kies: "Application" of "System"
+
+Laat PRTG waarschuwen bij kritieke fouten (bijv. foutcodes, crashes)
+
+g. Status van services (diensten)
+Voeg sensor toe: Windows Service Sensor
+
+Kies belangrijke services zoals:
+
+Active Directory Domain Services
+
+DNS Server
+
+DHCP Server
+
+Laat PRTG waarschuwen als een service uitvalt
+
+✅ Tot Slot: Alles controleren
+Ga na of alles werkt:
+
+Sensoren tonen gegevens?
+
+Waarschuwingen komen door?
+
+PRTG toont grafieken?
+
+Tijd is overal gelijk?
