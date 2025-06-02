@@ -1,0 +1,57 @@
+📌 STAP 1 – Tijd instellen op je switch, firewall en andere netwerkapparaten
+Je moet de apparaten laten praten met een tijdserver op internet. De opdracht zegt: gebruik nl.pool.ntp.org.
+
+🧪 Voorbereiding: IP-adres vinden van de tijdserver
+Open Command Prompt op je pc (Windows + R → typ cmd)
+
+Typ dit in:
+
+bash
+Kopiëren
+Bewerken
+ping nl.pool.ntp.org
+Je ziet dan iets als:
+Pinging 162.159.200.1 with 32 bytes of data...
+👉 Gebruik dat IP-adres straks op de apparaten.
+
+🖥️ SNMP instellen op de Cisco Switch (bijv. Catalyst 3750)
+Open je console of SSH naar de switch
+
+Typ de volgende commando’s:
+
+bash
+Kopiëren
+Bewerken
+enable
+configure terminal
+clock timezone CET 1
+clock summer-time CEST recurring
+ntp server 162.159.200.1
+end
+write memory
+📝 Wat doet dit?
+
+clock timezone → stelt de tijdzone in op Nederland
+
+clock summer-time → zorgt voor zomertijd
+
+ntp server → stelt de tijdserver in
+
+🔥 FortiGate firewall (via GUI)
+Log in via de webinterface van de FortiGate
+
+Ga naar System → Settings
+
+Zoek het blokje “System Time”
+
+Stel in:
+
+Time zone: (GMT+1:00) Amsterdam
+
+Enable NTP: ✅
+
+NTP Server: vul hier het IP-adres in van nl.pool.ntp.org (bijv. 162.159.200.1)
+
+Klik op Apply
+
+✅ Klaar!
