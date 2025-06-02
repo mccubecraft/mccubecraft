@@ -19,9 +19,6 @@ Open je console of SSH naar de switch
 
 Typ de volgende commando’s:
 
-bash
-Kopiëren
-Bewerken
 enable
 configure terminal
 clock timezone CET 1
@@ -55,3 +52,56 @@ NTP Server: vul hier het IP-adres in van nl.pool.ntp.org (bijv. 162.159.200.1)
 Klik op Apply
 
 ✅ Klaar!
+
+🖥️ NTP instellen via de GUI op Windows Server
+📋 Stappen:
+Open het Configuratiescherm
+
+Klik op Start → typ Configuratiescherm → open het.
+
+Ga naar 'Datum en tijd'
+
+Klik op Klok en regio (als je die ziet)
+
+Klik daarna op Datum en tijd
+
+Open tabblad ‘Internettijd’
+
+Klik bovenin op het tabblad Internettijd
+
+Klik daarna op de knop Instellingen wijzigen
+
+Instellen van NTP-server
+
+Zet het vinkje aan bij Synchroniseren met een internet tijdserver
+
+Vul bij Server in: nl.pool.ntp.org
+
+Klik op Nu bijwerken
+
+Als het goed gaat krijg je een melding zoals:
+✅ "De klok is succesvol gesynchroniseerd met nl.pool.ntp.org"
+
+Klik op OK > OK om af te sluiten
+
+🧪 Controleren of het werkt:
+Je kunt het controleren via:
+
+Terug naar het tabblad Internettijd: daar staat wanneer de laatste synchronisatie was
+
+Of via CMD (optioneel):
+
+w32tm /query /status
+⏱️ Opmerking:
+De Windows Time Service moet aan staan. Als je foutmeldingen krijgt bij het bijwerken:
+
+Ga naar Start > typ services.msc > open het
+
+Zoek Windows Time
+
+Klik rechts > Eigenschappen
+
+Zet op Automatisch starten
+
+Klik op Start als de service gestopt is
+
