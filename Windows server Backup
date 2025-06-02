@@ -1,0 +1,183 @@
+💾 Oefenopdracht 14 – Windows Server Backup (Handleiding)
+🎯 Wat ga je doen?
+Leren over verschillende soorten back-ups
+
+Windows Server zo instellen dat hij automatisch back-ups maakt
+
+Gegevens verwijderen en terugzetten (restore)
+
+En leren hoe je gebruikers zelf hun bestanden kunt laten terughalen
+
+✅ OPDRACHT 14.1 – Netwerk klaarzetten
+1. Sluit je netwerkapparaten aan
+Gebruik dezelfde opstelling als bij de vorige opdrachten (dus zelfde switch, firewall, server en client).
+
+Zorg dat:
+
+De server en client aanstaan
+
+Ze in het juiste VLAN zitten
+
+De client een IP-adres van de server krijgt
+
+De client internet heeft via de FortiGate/firewall
+
+2. Zet de back-up terug van je switch en firewall
+Als je in de vorige les een back-up van de configuratie van je switch en firewall hebt gemaakt, moet je die nu terugzetten (restoren).
+
+Switch (bijv. Cisco):
+bash
+Kopiëren
+Bewerken
+enable
+copy tftp://<ip van je tftp server>/<configbestand> startup-config
+reload
+FortiGate:
+Log in op de GUI
+
+Ga naar System → Configuration → Restore
+
+Upload je back-upbestand van de vorige opdracht
+
+✅ OPDRACHT 14.2 – Back-up types uitleggen
+Vul hieronder de betekenissen in. Dit moet je uit je hoofd leren of opschrijven voor je examen.
+
+1. Full Backup
+Maakt een kopie van alle bestanden
+
+Duurt het langst, maar is het meest volledig
+
+2. Copy Backup
+Lijkt op een full backup, maar reset geen backup-instellingen
+
+Handig voor extra kopie tussendoor zonder je schema te verstoren
+
+3. Incremental Backup
+Maakt alleen back-up van dingen die zijn veranderd sinds de laatste backup
+
+Snel en klein bestand, maar lastiger bij terugzetten (je hebt meerdere stappen nodig)
+
+4. Differential Backup
+Maakt back-up van alles dat is veranderd sinds de laatste full backup
+
+Groeit elke dag iets groter tot er weer een full backup is
+
+✅ OPDRACHT 14.3 – Back-up Strategie Begrippen
+1. Retention Period
+Hoe lang je een back-up bewaart (bijv. 7 dagen, 1 maand)
+
+2. Grandfather-Father-Son (GFS)
+Een rotatie schema:
+
+Son = dagelijkse back-up
+
+Father = wekelijkse back-up
+
+Grandfather = maandelijkse back-up
+
+3. Compliance eisen
+Regels waar je aan moet voldoen, bijvoorbeeld AVG of belastingwetten
+
+4. Point-in-Time Recovery
+Bestanden herstellen naar een specifiek moment in de tijd
+
+5. Back-upfrequentie
+Hoe vaak je een back-up maakt (bijv. elk uur, elke dag)
+
+✅ OPDRACHT 14.4 – Windows Backup Instellen
+1. Voeg extra schijf toe (Backups)
+Ga naar Disk Management
+
+Rechterklik op de nieuwe schijf → "Initialize Disk"
+
+Kies GPT (niet MBR)
+
+Maak een volume aan → noem het “Backups”
+
+2. Installeer Windows Server Backup
+Open Server Manager
+
+Klik op “Manage” → “Add Roles and Features”
+
+Klik door tot bij Features
+
+Vink aan: ✅ Windows Server Backup
+
+Klik op “Install”
+
+3. Maak testdata aan
+Ga naar de map die gedeeld is met gebruikers
+
+Zet er wat testbestanden in zoals Word-documenten, foto’s, of txt-bestanden
+
+Je kunt demo-bestanden downloaden van het internet
+
+4. Stel Incremental Backup in voor gebruikersdata
+Open Windows Server Backup
+
+Klik rechts op “Backup Schedule”
+
+Kies:
+
+Volledige server of alleen het “Data” volume
+
+Backup-type: Incremental (is standaard)
+
+Selecteer de tijd → zie volgende stap
+
+5. Plan twee back-ups
+Eerste backup: over 15 minuten vanaf nu
+
+Tweede backup: een half uur na de eerste
+
+Kies de locatie: je nieuwe Backups-schijf
+
+6. Maak bestanden aan
+Ga naar map \\SERVER\Gebruikers\Directie\
+
+Maak twee bestanden aan:
+
+Proef.txt
+
+Test.txt
+
+7. Wacht tot de eerste backup klaar is
+❓ Vraag: Wat voor soort backup is dit?
+✅ Antwoord: Full backup (de eerste is altijd volledig)
+
+8. Verwijder de twee bestanden
+Verwijder Proef.txt en Test.txt uit de map Directie
+
+9. Wacht tot de tweede backup klaar is
+❓ Vraag: Wat voor soort backup is dit?
+✅ Antwoord: Incremental (neemt alleen de wijziging mee: dat iets verwijderd is)
+
+10. Open de backup
+Open Windows Server Backup
+
+Klik op “Recover”
+
+Kies:
+
+Waar de backup staat
+
+De juiste datum/tijd
+
+Bekijk welke mappen en bestanden in de backup zitten
+
+11. Restore het bestand Proef.txt
+Kies “Files and Folders” bij herstel
+
+Navigeer naar Directie → selecteer Proef.txt
+
+Kies: Restore to original location
+
+12. Is het bestand terug op zijn plek?
+✅ Ja, het wordt teruggezet in Directie
+
+BONUS: Zelf bestanden herstellen?
+❓Vraag: Welke optie in Windows Server laat gebruikers zelf bestanden terughalen?
+✅ Antwoord: Previous Versions / Schaduwkopieën (Shadow Copies)
+
+Via: Rechtermuisklik op map → “Vorige versies” → bestand terughalen
+(Voorwaarde: Schaduwkopieën moeten aanstaan op de schijf)
