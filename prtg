@@ -9,22 +9,13 @@ Bij API key community aanmaken, zelf bedenken, bijvoorbeeld ; -Private of -Publi
 sensoren instellen
 advies geven
 
-✅ Monitoring Examen – Stappenplan (Jip & Janneke)
 
-🛠️ Wat moet je doen?
-
-Je gaat PRTG installeren en daarmee de switch en FortiGate monitoren. Je zorgt dat PRTG alles ziet via SNMP en (voor FortiGate) ook via een API key.
-
-
----
 
 💻 STAP 1 – Installeer PRTG op je Windows Server
 
 1. Ga naar: https://www.paessler.com/prtg
 
-
 2. Download PRTG en installeer het op je Windows Server
-
 
 3. Laat alle standaardinstellingen gewoon aanstaan
 
