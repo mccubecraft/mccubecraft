@@ -1,0 +1,184 @@
+📡 Oefenopdracht 16 – SNMP & Syslog Monitoring (Handleiding)
+🎯 Wat ga je doen?
+SNMP en Syslog gebruiken om netwerkapparaten te monitoren
+
+PRTG gebruiken om meldingen te krijgen als er iets misgaat met je switch of firewall
+
+SNMP configureren op Cisco switch én FortiGate firewall
+
+Een back-up maken en de FortiGate terugzetten naar fabrieksinstellingen
+
+✅ VOORBEREIDING
+Wat moet je klaarzetten?
+Alle netwerkapparaten aangesloten zoals in de tekening (switch, FortiGate, server, client)
+
+Windows Server draait al en heeft PRTG geïnstalleerd
+
+NTP is ingesteld (zie opdracht 15) → alle apparaten hebben dezelfde tijd
+
+🧠 SNMP en Syslog, wat is dat?
+SNMP (Simple Network Management Protocol)
+Een taal/protocol waarmee netwerkapparaten (zoals switches en firewalls) met een beheerprogramma (zoals PRTG) praten.
+
+Ze vertellen dan hoe het met ze gaat: of een poort aan/uit is, hoeveel geheugen ze gebruiken, enzovoort.
+
+Syslog
+Een logboek waar apparaten hun meldingen in schrijven (zoals foutmeldingen).
+
+Die meldingen gaan via SNMP naar een Syslog-server (zoals PRTG).
+
+✅ Cisco Switch Monitoren met SNMP
+1. Stel SNMP in op de Cisco Switch
+Open de console of SSH naar de switch
+
+Voer deze commando’s in:
+
+bash
+Kopiëren
+Bewerken
+enable
+configure terminal
+snmp-server community public RO
+snmp-server community public RW
+snmp-server location Serverruimte
+snmp-server contact beheer@example.com
+end
+write memory
+RO = Read Only → alleen lezen
+
+RW = Read Write → ook instellingen kunnen aanpassen
+
+SNMP versie 2 is standaard actief
+
+2. Voeg de Cisco Switch toe in PRTG
+In PRTG: klik op “Add Device”
+
+Geef de hostname van de switch in (zoals cisco-switch)
+
+Stel SNMP in:
+
+Gebruik versie v2c
+
+Community string: public
+
+3. Voeg deze sensoren toe in PRTG:
+a. Interface Status
+Sensor: SNMP Interface
+
+Laat PRTG een melding geven als een poort down gaat
+
+b. Bandbreedtegebruik
+Sensor: SNMP Traffic
+
+Stel drempelwaarde in → waarschuwing bij >80% gebruik
+
+c. Geheugengebruik
+Sensor: SNMP Memory Usage
+
+Laat PRTG waarschuwen bij >75% gebruik
+
+4. Test of SNMP goed werkt
+Sluit een apparaat aan op een switchpoort
+
+Wacht tot de poort status UP is in PRTG
+
+Trek de kabel eruit
+
+❓ Vraag: Welke melding geeft PRTG?
+✅ Antwoord: Poort is DOWN – je krijgt een waarschuwing
+
+✅ FortiGate Monitoren met SNMP
+1. Stel SNMP in op de FortiGate
+Log in via de webinterface
+
+Ga naar System → SNMP
+
+Voeg een SNMP community toe:
+
+Naam: Public
+
+SNMP versie: v2c
+
+Host: IP van je PRTG-server
+
+Sla op
+
+(Als het niet in de GUI lukt, gebruik dan de CLI)
+
+bash
+Kopiëren
+Bewerken
+config system snmp community
+edit 1
+set name public
+config hosts
+edit 1
+set ip 192.168.x.x 255.255.255.255
+next
+end
+next
+end
+2. Voeg de FortiGate toe in PRTG
+Ga naar PRTG → “Add Device”
+
+Naam: geef de hostname van je FortiGate op
+
+SNMP v2c instellen met community: public
+
+3. Voeg deze sensoren toe:
+a. Interface Status
+Sensor: SNMP Interface
+
+Waarschuw als een WAN- of LAN-poort down is
+
+b. Bandbreedtegebruik
+Sensor: SNMP Traffic
+
+Waarschuw bij gebruik >80%
+
+c. Geheugengebruik
+Sensor: SNMP Memory Usage
+
+Meld bij >75% gebruik
+
+4. Test of SNMP goed werkt
+Verbreek de WAN-kabel van de FortiGate
+
+Wacht 1-2 minuten
+
+❓ Vraag: Welke melding geeft PRTG?
+✅ Antwoord: De interface is DOWN – alarm of foutmelding zichtbaar in PRTG
+
+✅ Back-up maken en fabrieksinstellingen terugzetten
+FortiGate:
+Log in op de GUI
+
+Ga naar System → Configuration → Backup
+
+Download de back-up van je configuratie
+
+Reset FortiGate naar fabrieksinstellingen:
+Klik rechtsboven op het >_ console-icoon
+
+Typ:
+
+bash
+Kopiëren
+Bewerken
+execute factoryreset
+Bevestig met Y
+
+FortiGate start opnieuw op → is nu leeg
+
+Huawei switch (of ander merk)
+Log in via CLI (gebruik consolekabel)
+
+In user mode:
+
+bash
+Kopiëren
+Bewerken
+reset saved-configuration
+Bevestig met Y
+
+Start de switch opnieuw → is nu terug naar fabrieksinstellingen
