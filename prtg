@@ -8,39 +8,25 @@ https://blog.paessler.com/monitoring-fortigate-firewalls-with-paessler-prtg
 
 Bij API key community aanmaken, zelf bedenken, bijvoorbeeld ; -Private of -Public
 
-sensoren instellen
-advies geven
-
-
 
 💻 STAP 1 – Installeer PRTG op je Windows Server
 
 1. Ga naar: https://www.paessler.com/prtg
-
 2. Download PRTG en installeer het op je Windows Server
-
 3. Laat alle standaardinstellingen gewoon aanstaan
-
 
 4. Wacht tot PRTG is geïnstalleerd en open dan de website:
 http://localhost
-
 
 5. Log in met de gegevens die je tijdens de installatie hebt gekozen
 
 
 
-
----
-
 🧠 STAP 2 – Zet SNMP aan op de Cisco switch
 
 1. Open de console of SSH naar de switch
 
-
 2. Typ de volgende commando's in:
-
-
 
 enable
 configure terminal
@@ -53,29 +39,17 @@ write memory
 3. In PRTG:
 
 Klik op "Add Device"
-
 Vul het IP-adres van de switch in
-
 Bij “credentials” → gebruik SNMP v2 en community: public
 
 Voeg een sensor toe → bijvoorbeeld “SNMP Traffic” voor poortverkeer
 
 
-
-
-
----
-
 🔥 STAP 3 – Zet SNMP aan op de FortiGate 30E
 
 1. Log in op de FortiGate webinterface
-
-
 2. Ga naar: System → SNMP
-
-
 3. Zet SNMP aan
-
 
 4. Voeg een community toe:
 
@@ -84,8 +58,6 @@ Naam: public
 IP: het IP-adres van je PRTG server
 
 Interface: internal
-
-
 
 
 Als je het via CLI moet doen, gebruik dan dit:
@@ -104,15 +76,11 @@ end
 (Zet bij set ip het IP-adres van je PRTG-server)
 
 
----
 
 🔐 STAP 4 – Maak een API-key aan op FortiGate
 
 1. Ga naar: System → Administrators
-
-
 2. Klik op "Create New"
-
 
 3. Kies:
 
@@ -123,16 +91,11 @@ Gebruikersnaam: prtg-api
 Profiel: Read-Only
 
 
-
 4. Klik op “OK” → FortiGate geeft nu een API-key
-
 
 5. Sla de API-key ergens op (die heb je straks nodig in PRTG)
 
 
-
-
----
 
 🧪 STAP 5 – Maak sensoren aan in PRTG
 
@@ -149,8 +112,6 @@ Alles	Ping sensor	Online of offline
 
 
 
----
-
 🔔 STAP 6 – Test of het werkt
 
 Trek een kabel uit een poort op de switch → krijg je een melding in PRTG?
@@ -161,59 +122,5 @@ Bekijk in PRTG of de grafieken mooi lopen
 
 
 
----
-
-📋 STAP 7 – (Optioneel) Advies geven
-
-Als je dit moet doen:
-
-Zijn er poorten overbelast?
-
-Draait de firewall te zwaar?
-
-Kan SNMP beter via v3?
-
-Werkt de API goed?
-
-Zijn alle apparaten online?
-
-
-
----
-
 🔗 Handige links voor tijdens het examen
-
 PRTG handleiding: https://www.paessler.com/manuals/prtg
-
-Fortigate SNMP/API info: https://community.fortinet.com
-
-Cisco SNMP: https://www.cisco.com
-
-
-
----
-
-✅ Alles gedaan? Checklist!
-
-[x] PRTG geïnstalleerd
-
-[x] Switch SNMP ingesteld
-
-[x] FortiGate SNMP ingesteld
-
-[x] API key aangemaakt
-
-[x] Sensoren aangemaakt in PRTG
-
-[x] Test uitgevoerd
-
-[ ] (Advies geschreven)
-
-
-
-
-Klaar! ✅
-Je hebt nu een volledig, eenvoudig uitgelegd stappenplan dat je op GitHub kunt zetten. Bestandsnaam: monitoring-examen-plan.md
-
-Laat maar weten als je er een PDF van wilt of als je nog iets extra's zoals screenshots of voorbeelden wil toevoegen!
-
