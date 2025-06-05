@@ -6,9 +6,6 @@ Open Command Prompt op je pc (Windows + R → typ cmd)
 
 Typ dit in:
 
-bash
-Kopiëren
-Bewerken
 ping nl.pool.ntp.org
 Je ziet dan iets als:
 Pinging 162.159.200.1 with 32 bytes of data...
@@ -26,6 +23,7 @@ clock summer-time CEST recurring
 ntp server 162.159.200.1
 end
 write memory
+
 📝 Wat doet dit?
 
 clock timezone → stelt de tijdzone in op Nederland
