@@ -1,0 +1,151 @@
+## ✅ 1. Wat is SNMP en waarom gebruik je het?
+
+**SNMP** = *Simple Network Management Protocol*
+
+- SNMP zorgt ervoor dat apparaten zoals switches en firewalls informatie kunnen doorgeven aan een monitoringsprogramma zoals **PRTG**.
+- Zo kun je zien of een apparaat aanstaat, hoeveel verkeer erop zit, of er fouten zijn, enzovoort.
+- In dit examen gebruik je **SNMP versie 2c** (simpeler dan versie 3).
+
+---
+
+## 🤝 2. Wat zijn SNMP-communities?
+
+Een SNMP-community is als een wachtwoord dat toegang geeft tot monitoringinformatie van een apparaat:
+
+- `public` → alleen lezen (**read-only / RO**)
+- `private` → lezen én schrijven (**read-write / RW**)
+
+Voor je examen gebruik je alleen **read-only (public)**.
+
+---
+
+## 📡 3. SNMP instellen op Cisco Catalyst 3750 Switch
+
+### Via CLI:
+
+1. Verbind via console of SSH met de switch.
+2. Typ de volgende commando’s:
+
+enable
+configure terminal
+snmp-server community public RO
+snmp-server community private RW
+exit
+write memory
+Hiermee stel je SNMP in met de community strings public (RO) en private (RW).
+
+🔐 4. SNMP instellen op Fortigate 30E (via GUI)
+Stap voor stap:
+Log in via de browser op je Fortigate (bijv. https://192.168.1.99).
+
+Ga naar System > SNMP.
+
+Klik op Create New.
+
+Vul in:
+
+Name: SNMP-monitoring
+
+Community Name: public
+
+Hosts: IP-adres van je PRTG-server (Windows VM)
+
+SNMP Version: v2c
+
+Vink aan: Enable this SNMP community
+
+Klik op OK.
+
+🟡 Als "SNMP" niet zichtbaar is:
+
+Ga naar System > Feature Visibility
+
+Zet SNMP aan bij “Additional Features”
+
+📊 5. PRTG instellen voor SNMP
+Open de PRTG webinterface op je Windows Server VM.
+
+Ga naar Devices > Add Device.
+
+Vul in:
+
+Naam: “Switch” of “Firewall”
+
+IP-adres van het apparaat
+
+Device Type: SNMP
+
+Onder Credentials for SNMP Devices:
+
+Version: SNMP v2c
+
+Community String: public
+
+Klik op Add.
+
+PRTG zal automatisch sensoren proberen toe te voegen (duurt soms 1–2 minuten).
+
+⏰ 6. Waarom tijd (NTP) belangrijk is bij monitoring
+Zonder goede tijd zie je verkeerde tijdstempels in je monitoring.
+
+Voorbeeld: je denkt dat iets om 12:00 stuk ging, maar het was 13:00.
+
+Daarom gebruik je NTP (Network Time Protocol) om alle apparaten gelijk te zetten.
+
+🕰 7. Fortigate instellen als NTP-server (via GUI)
+Stap 1: Externe tijd instellen
+Ga naar System > Settings.
+
+Onder System Time:
+
+Kies je tijdzone: Europe/Amsterdam
+
+Zet aan: Synchronize with NTP Server
+
+Vul in: 0.nl.pool.ntp.org of een andere tijdserver
+
+Klik op Apply
+
+Stap 2: Fortigate als NTP-server voor je netwerk
+Ga naar System > Feature Visibility
+
+Zet NTP Server aan
+
+Ga terug naar System > Settings
+
+Onder NTP Server Settings:
+
+Zet aan: Enable FortiGate as NTP Server
+
+Kies het IP-adres waarmee andere apparaten Fortigate kunnen bereiken (bijv. 192.168.1.99)
+
+Klik op Apply
+
+🕓 8. NTP instellen op de Cisco Catalyst 3750 switch
+Verbind via CLI met de switch.
+
+Typ het volgende (gebruik IP van de Fortigate):
+
+
+enable
+configure terminal
+ntp server 192.168.1.99
+exit
+write memory
+Hiermee synchroniseert de switch zijn tijd met de Fortigate.
+
+🧠 9. Waarom monitoring belangrijk is
+Je ziet of apparaten aan staan.
+
+Je kunt problemen sneller herkennen.
+
+Je kunt capaciteit en prestaties meten (bijv. CPU, RAM, netwerkgebruik).
+
+Je krijgt inzicht in trends, storingen en beveiligingsgebeurtenissen.
+
+🔄 10. Hoe SNMP en NTP samenwerken
+SNMP geeft je de gegevens (zoals CPU, poortstatus, enz.).
+
+NTP zorgt dat deze gegevens een juiste tijd hebben.
+
+Samen zorgen ze ervoor dat jouw monitoring in PRTG betrouwbaar en bruikbaar is.
