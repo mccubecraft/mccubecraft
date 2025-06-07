@@ -1,0 +1,155 @@
+1. ✅ Wat is SNMP en waarom gebruik je het?
+SNMP = Simple Network Management Protocol
+
+In Jip-en-Janneke taal:
+SNMP zorgt ervoor dat je apparaten zoals switches en firewalls informatie kunnen doorgeven aan een monitoringsprogramma zoals PRTG.
+
+Zo weet je of een apparaat aan staat, hoe druk hij het heeft, of er fouten zijn, enz.
+
+👉 Voor jouw examen hoef je versie 2c van SNMP te gebruiken (veel simpeler dan SNMPv3).
+
+2. 📡 SNMP instellen op de Cisco Catalyst 3750 switch
+Stap voor stap:
+Verbind met de switch via console of SSH.
+
+Log in op de CLI.
+
+Typ het volgende:
+
+bash
+Kopiëren
+Bewerken
+enable
+configure terminal
+snmp-server community public RO
+snmp-server community private RW
+exit
+write memory
+Wat dit doet:
+Maakt 2 SNMP "gemeenschappen" (zoals wachtwoorden):
+
+public = alleen lezen (RO = read-only)
+
+private = lezen en schrijven (RW = read-write)
+
+3. 🔐 SNMP instellen op de Fortigate 30E
+Via de webinterface:
+Log in op je Fortigate via je browser.
+
+Ga naar System > SNMP.
+
+Klik op Create New of configureer het bestaande profiel.
+
+Vul in:
+
+Community Name: public
+
+Hosts: IP-adres van je PRTG-server (jouw Windows Server VM)
+
+SNMP Version: v2c
+
+Klik op OK of Apply.
+
+👀 Vergeet niet: soms staat SNMP standaard UIT. Controleer bij System > Feature Visibility of SNMP aan staat.
+
+4. 🤝 Wat zijn SNMP-communities?
+Een SNMP-community is net als een wachtwoord. Je gebruikt het om:
+
+Informatie op te vragen van een apparaat (bijv. hoeveel CPU hij gebruikt).
+
+Met een read-only (RO) of read-write (RW) rechten.
+
+Voor jouw examen hoef je alleen public (RO) te gebruiken.
+
+5. 📊 PRTG instellen voor SNMP
+Op je Windows Server VM (waar PRTG op draait):
+
+Stap voor stap:
+Open de PRTG webinterface.
+
+Klik op Devices > Add Device.
+
+Vul in:
+
+Naam van apparaat (bijv. “Switch” of “Firewall”).
+
+IP-adres van het apparaat.
+
+Kies bij Device Type: SNMP.
+
+Bij Credentials for SNMP Devices, vul in:
+
+Version: SNMP v2c
+
+Community String: public
+
+Klik op Add.
+
+Wacht tot PRTG de data laat zien (soms 1–2 minuten).
+
+6. ⏰ Waarom tijd (NTP) belangrijk is bij monitoring
+In Jip-en-Janneke taal:
+
+Als de tijd op je apparaten niet klopt, dan zie je verkeerde tijden in je monitoring.
+
+Bijvoorbeeld: je denkt dat iets om 12:00 kapot ging, maar het was eigenlijk 13:00.
+
+Daarom gebruik je NTP (Network Time Protocol): dat zorgt dat alles de juiste tijd heeft.
+
+7. 🕓 NTP instellen op de Cisco switch
+Verbind via CLI met je switch.
+
+Typ:
+
+bash
+Kopiëren
+Bewerken
+enable
+configure terminal
+ntp server 192.168.1.10
+exit
+write memory
+🔁 Vervang 192.168.1.10 door het IP-adres van jouw tijdserver (zie stap hieronder).
+
+8. 🕰 Fortigate als tijdserver instellen
+Je gaat nu je Fortigate zo instellen dat hij zelf de tijd doorgeeft aan andere apparaten.
+
+Via CLI:
+Log in op Fortigate via SSH of GUI.
+
+Ga naar CLI Console en typ:
+
+bash
+Kopiëren
+Bewerken
+config system ntp
+set ntpsync enable
+set type custom
+set server "pool.ntp.org"
+end
+➡️ Hiermee haalt Fortigate tijd van pool.ntp.org.
+
+Fortigate tijdserver laten zijn voor andere apparaten:
+bash
+Kopiëren
+Bewerken
+config system global
+set ntp-server enable
+end
+Nu mag de switch zijn tijd ophalen bij de Fortigate!
+
+9. 🧠 Waarom monitoring belangrijk is
+Je weet meteen als een apparaat uitvalt.
+
+Je ziet trends (bijv. CPU wordt langzaam hoger → probleem voorspellen).
+
+Je kunt storingen sneller oplossen.
+
+Het is essentieel voor beveiliging/logs.
+
+10. 🤝 Hoe SNMP en NTP samenwerken
+SNMP laat je gegevens ophalen.
+
+NTP zorgt dat die gegevens een kloptijd hebben.
+
+Samen zorgen ze voor betrouwbare monitoring in tools zoals PRTG.
