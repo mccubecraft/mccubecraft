@@ -1,7 +1,6 @@
 1. ✅ Wat is SNMP en waarom gebruik je het?
 SNMP = Simple Network Management Protocol
 
-In Jip-en-Janneke taal:
 SNMP zorgt ervoor dat je apparaten zoals switches en firewalls informatie kunnen doorgeven aan een monitoringsprogramma zoals PRTG.
 
 Zo weet je of een apparaat aan staat, hoe druk hij het heeft, of er fouten zijn, enz.
@@ -16,9 +15,6 @@ Log in op de CLI.
 
 Typ het volgende:
 
-bash
-Kopiëren
-Bewerken
 enable
 configure terminal
 snmp-server community public RO
@@ -88,7 +84,6 @@ Klik op Add.
 Wacht tot PRTG de data laat zien (soms 1–2 minuten).
 
 6. ⏰ Waarom tijd (NTP) belangrijk is bij monitoring
-In Jip-en-Janneke taal:
 
 Als de tijd op je apparaten niet klopt, dan zie je verkeerde tijden in je monitoring.
 
@@ -101,9 +96,6 @@ Verbind via CLI met je switch.
 
 Typ:
 
-bash
-Kopiëren
-Bewerken
 enable
 configure terminal
 ntp server 192.168.1.10
@@ -111,32 +103,64 @@ exit
 write memory
 🔁 Vervang 192.168.1.10 door het IP-adres van jouw tijdserver (zie stap hieronder).
 
-8. 🕰 Fortigate als tijdserver instellen
-Je gaat nu je Fortigate zo instellen dat hij zelf de tijd doorgeeft aan andere apparaten.
+🔐 SNMP instellen op de Fortigate 30E via de GUI
+Stap voor stap:
+Log in op je Fortigate via je browser (bijv. https://192.168.1.99).
 
-Via CLI:
-Log in op Fortigate via SSH of GUI.
+Ga naar het menu System > SNMP.
 
-Ga naar CLI Console en typ:
+Klik op Create New of bewerk een bestaand profiel.
 
-bash
-Kopiëren
-Bewerken
-config system ntp
-set ntpsync enable
-set type custom
-set server "pool.ntp.org"
-end
-➡️ Hiermee haalt Fortigate tijd van pool.ntp.org.
+Vul in:
 
-Fortigate tijdserver laten zijn voor andere apparaten:
-bash
-Kopiëren
-Bewerken
-config system global
-set ntp-server enable
-end
-Nu mag de switch zijn tijd ophalen bij de Fortigate!
+Name: SNMP-monitoring
+
+Community Name: public
+
+Hosts: Voeg het IP-adres van je PRTG-server toe (je Windows VM).
+
+SNMP Version: v2c (versie 2c).
+
+Zet het vinkje aan bij Enable this SNMP community.
+
+Klik op OK of Apply.
+
+🟡 Let op: Als het menu "SNMP" niet zichtbaar is:
+
+Ga naar System > Feature Visibility.
+
+Zet SNMP aan bij “Additional Features”.
+
+🕰 Fortigate als tijdserver instellen via de GUI
+Stap 1: Tijd goed zetten met een externe tijdserver
+Ga naar System > Settings.
+
+Scroll naar beneden naar System Time.
+
+Kies bij Time Zone de juiste tijdzone (bijv. Europe/Amsterdam).
+
+Zet Synchronize with NTP Server aan.
+
+Bij NTP Server, vul in:
+→ 0.nl.pool.ntp.org
+(of een andere tijdserver die goed bereikbaar is).
+
+Klik op Apply.
+
+Stap 2: Fortigate tijdserver maken voor andere apparaten (zoals je switch)
+Ga naar System > Feature Visibility.
+
+Zet NTP Server aan (dit is meestal standaard uit).
+
+Ga terug naar System > Settings.
+
+Onder NTP Server Settings:
+
+Zet aan: Enable FortiGate as NTP Server.
+
+Kies het interne IP-adres waarmee apparaten Fortigate kunnen bereiken (bijv. 192.168.1.99).
+
+Klik op Apply.
 
 9. 🧠 Waarom monitoring belangrijk is
 Je weet meteen als een apparaat uitvalt.
